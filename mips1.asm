@@ -4,7 +4,7 @@
 	maxNumbers: .word 10
 	array: .space 40 
 	maximum: .word 0
-	minimum: .word 0
+	minimum: .word 2147483647
 	sum: .word 0
 	maximumStr: .asciiz "Maximum is: "
 	minimumStr: .asciiz "Minimum is: "
@@ -12,8 +12,6 @@
 	
 .text 
 	main:
-		# Load address of array into $t0
-		la $t0, array
 		# Initialise input counter to 0
 		li $t1, 0
 		lw $t4, maxNumbers
@@ -54,12 +52,6 @@
 			lw $t6, sum
 			add $t6, $t6, $t2
 			sw $t6, sum
-			
-			# Store input into array
-			sw $t2, ($t0)
-			 
-			# Increment array pointer
-			addi $t0, $t0, 4 
 			 
 			# Increment input counter
 			addi $t1, $t1, 1
