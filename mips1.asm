@@ -11,7 +11,6 @@
 	sumStr: .asciiz "Sum is: "
 	
 .text 
-  # Mari ggt sa bout la flmmm
 	main:
 		# Load address of array into $t0
 		la $t0, array
@@ -72,50 +71,39 @@
 			j loop
 			
 		exitLoop:
-			# Ouptut new line
-			li $v0, 4
-			la $a0, newline
-			syscall 
-			
-			# Output maximum
-			li $v0, 4
-			la $a0, maximumStr
-			syscall
-			
-			li $v0, 1
-			lw $a0, maximum
-			syscall
-			
-			li $v0, 4
-			la $a0, newline
-			syscall
-			
-			# Output minimum
-			li $v0, 4
-			la $a0, minimumStr
-			syscall
-			
-			li $v0, 1
-			lw $a0, minimum
-			syscall
-			
-			li $v0, 4
-			la $a0, newline
-			syscall
-			
-			# Output sum
-			li $v0, 4
-			la $a0, sumStr
-			syscall
-			
-			li $v0, 1
-			lw $a0, sum
-			syscall
-			
-			li $v0, 4
-			la $a0, newline
-			syscall
-			
+      # Output Maximum
+	  	la $a0, maximumStr
+      lw $a1, maximum
+      jal printInt
+
+      # Output Minimum
+			la $a0, minimumStr 
+      lw $a1, minimum 
+      jal printInt
+
+      # Output Sum 
+			la $a0, sumStr 
+      lw $a1, sum 
+      jal printInt
+
 			# Exit program
 			li $v0, 10
         syscall	 
+
+# Subprogram for integer output
+# Arguments: 
+#   $a0: String to print
+#   $a1: Integer to print 
+printInt:
+  li $v0, 4
+  syscall
+
+  li $v0, 1
+  move $a0, $a1
+  syscall
+
+  li $v0, 4
+  la $a0, newline
+  syscall
+
+  jr $ra
